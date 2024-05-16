@@ -2,6 +2,7 @@ package com.codigofacilito.app;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.NotActiveException;
 import java.nio.file.Files;
 
 public class FileListing {
@@ -12,9 +13,18 @@ public class FileListing {
 
     }
 
-    public File[] getFilesByExtension(String rootDirectory, String extension){
+    public SearchFileResult getFilesByExtension(String rootDirectory, String extension){
         var directory = new File(rootDirectory);
-        return directory.listFiles(pathname -> pathname.getName().endsWith(extension));
+        if (directory.exists() && directory.isDirectory()) {
+            var filesFound = directory.listFiles(pathname -> pathname.getName().endsWith(extension));
+            if (filesFound != null && filesFound.length > 0){
+                return new FilesFound(filesFound);
+            } else {
+                return new NoFilesFound();
+            }
+        } else {
+            return new DirectoryNotFound();
+        }
     }
 
     public Files listarArchivos(String rootDirectory){

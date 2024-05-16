@@ -17,12 +17,12 @@ class FileListingTest {
     }
 
     @Test
-    public void testGetFilesByExtension() {
+    public void testGetFilesReturnsEmptyArrayWhenNoFilesWithExtension() {
         var actualFilesFound = fileListing.getFilesByExtension(
                 "C:\\Users\\ricar\\Proyectos_github\\Java\\fmcli",
                 "txt");
         assertNotNull(actualFilesFound);
-        assertEquals(0, actualFilesFound.length);
+        assertInstanceOf(NoFilesFound.class, actualFilesFound);
     }
 
     @Test
@@ -31,7 +31,8 @@ class FileListingTest {
                 "C:\\Users\\ricar\\Proyectos_github\\Java\\fmcli2",
                 "txt");
         assertNotNull(actualFilesFound);
-        assertEquals(1, actualFilesFound.length);
+        assertInstanceOf(DirectoryNotFound.class, actualFilesFound);
+        assertNull(actualFilesFound.files);
     }
 
     @Test
