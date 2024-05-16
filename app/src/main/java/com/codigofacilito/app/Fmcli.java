@@ -1,4 +1,26 @@
 package com.codigofacilito.app;
 
-public class Fmcli {
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+
+import java.util.concurrent.Callable;
+
+@Command(name = "fmcli",
+        mixinStandardHelpOptions = true,
+        version = "0.0.1",
+        description = "File management easier for your life"
+)
+public class Fmcli implements Callable<Integer> {
+    public static void main(String[] args) {
+        int exitCode = new CommandLine(new Fmcli()).execute(args);
+        System.out.println(exitCode);
+    }
+
+    //Return 0 -> SUCCESS
+    //Return 1 -> FAILURE
+    //Comprobar ejecución en Windows -> echo $LASTEXITCODE
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
 }
