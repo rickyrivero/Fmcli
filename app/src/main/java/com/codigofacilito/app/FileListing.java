@@ -15,6 +15,7 @@ public class FileListing {
 
     public SearchFileResult getFilesByExtension(String rootDirectory, String extension){
         var directory = new File(rootDirectory);
+        System.out.println("Directory: " + directory.getAbsolutePath());
         if (directory.exists() && directory.isDirectory()) {
             var filesFound = directory.listFiles(pathname ->
                     pathname.getName().endsWith(extension)

@@ -13,7 +13,7 @@ class FileListingTest {
     public void testGetFiles() {
         var actualFilesFound = fileListing.getFiles("C:\\Users\\ricar\\Proyectos_github\\Java\\fmcli");
         assertNotNull(actualFilesFound);
-        assertEquals(11, actualFilesFound.length);
+        assertEquals(12, actualFilesFound.length);
     }
 
     @Test

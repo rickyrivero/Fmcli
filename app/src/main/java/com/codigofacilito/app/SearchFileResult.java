@@ -2,7 +2,7 @@ package com.codigofacilito.app;
 
 import java.io.File;
 
-public sealed class SearchFileResult permits NoFilesFound, FilesFound, DirectoryNotFound{
+public sealed abstract class SearchFileResult permits NoFilesFound, FilesFound, DirectoryNotFound{
     public final File[] files;
 
     public SearchFileResult(File[] files){
