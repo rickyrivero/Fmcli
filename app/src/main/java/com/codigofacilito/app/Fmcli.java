@@ -31,13 +31,29 @@ public class Fmcli implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         if (isListing){
-            return resolveListing();
+            //return resolveListing();
+            switch (resolveListing()){
+                case 1:
+                    System.out.println("No se encontró el archivo");
+                case -1:
+                    System.out.println("El directorio no existe");
+                case 0:
+                    System.out.println("Exito en la operación");
+            }
         }
         if (isCreating){
-            return resolveCreating();
+            //return resolveCreating();
+            switch (resolveCreating()){
+                case 1:
+                    System.out.println("No se pudo crear el archivo");
+                case -1:
+                    System.out.println("El archivo ya existe");
+                case 0:
+                    System.out.println("Exito en la operación");
+            }
         }
         if (isInfo){
-            resolveInformation();
+            return resolveInformation();
         }
         return 0;
     }

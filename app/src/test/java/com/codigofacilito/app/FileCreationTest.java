@@ -1,36 +1,60 @@
 package com.codigofacilito.app;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FileCreationTest {
     private FileCreation fileCreation = new FileCreation();
+    private String testDirectory;
+    private String testFileName;
 
-    @Test
-    public void testCreateFile() {
-        var actualFileCreated = fileCreation.createFile(
-                "C:\\Users\\ricar\\Proyectos_github\\Java\\fmcli",
-                "sin.txt");
-        assertNotNull(actualFileCreated);
-        assertEquals(1, 0);
+    @BeforeEach
+    public void setUp() {
+        fileCreation = new FileCreation();
+        testDirectory = "testDir";
+        testFileName = "testFile.txt";
+
+        // Create a test directory
+        new File(testDirectory).mkdirs();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Clean up the test directory and files
+        File file = new File(testDirectory, testFileName);
+        if (file.exists()) {
+            file.delete();
+        }
+        new File(testDirectory).delete();
     }
 
     @Test
-    public void testFileAlreadyExists() {
-        var actualFileCreated = fileCreation.createFile(
-                "C:\\Users\\ricar\\Proyectos_github\\Java\\fmcli",
-                "singar.txt");
-        assertNotNull(actualFileCreated);
-        assertInstanceOf(FileAlreadyExists.class, actualFileCreated);
+    public void testCreateFile() {
+        var result = fileCreation.createFile(
+                testDirectory,
+                testFileName);
+        assertNotNull(result);
+        assertTrue(result instanceof FileCreated);
+        assertTrue(new File(testDirectory, testFileName).exists());
+    }
+
+    @Test
+    public void testFileAlreadyExists() throws IOException {
+        new File(testDirectory, testFileName).createNewFile();
+        var result = fileCreation.createFile(testDirectory, testFileName);
+        assertTrue(result instanceof FileAlreadyExists);
     }
 
     @Test
     public void testNotCreated() {
-        var actualFileCreated = fileCreation.createFile(
-                "C:\\Users\\ricar\\Proyectos_github\\Java\\fmcli\\puta",
-                "singar.txt");
-        assertNotNull(actualFileCreated);
-        assertInstanceOf(NoFileCreated.class, actualFileCreated);
+        var result = fileCreation.createFile("invalidDir", testFileName);
+        assertNotNull(result);
+        assertTrue(result instanceof NoFileCreated);
     }
 }

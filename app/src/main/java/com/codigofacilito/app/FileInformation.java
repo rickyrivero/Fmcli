@@ -1,7 +1,6 @@
 package com.codigofacilito.app;
 
 import java.io.File;
-import java.io.IOException;
 
 public class FileInformation {
     public SearchInfoResult infoFile(String rootDirectory, String name){
