@@ -11,10 +11,8 @@ public sealed abstract class SearchCreateResult permits NoFileCreated, FileCreat
 }
 
 final class NoFileCreated extends SearchCreateResult{
-    public final String message;
-    public NoFileCreated(String message) {
+    public NoFileCreated() {
         super(null);
-        this.message = message;
     }
 }
 
