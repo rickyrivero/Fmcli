@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileCreation {
-    public SearchCreateResult createFile(String rootDirectory, String name){
+    public CreateFileResult createFile(String rootDirectory, String name){
         var file = new File(rootDirectory, name);
         if (file.exists()) {
             if (file.isFile()) {

@@ -18,6 +18,8 @@ repositories {
 dependencies {
     implementation(libs.picocli)
     annotationProcessor(libs.picocli.codegen)
+    implementation("com.itextpdf:itext7-core:7.2.6")
+    implementation("org.slf4j:slf4j-simple:2.0.7")
 
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)

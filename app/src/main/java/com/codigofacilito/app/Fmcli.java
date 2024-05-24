@@ -9,7 +9,7 @@ import java.util.concurrent.Callable;
 
 @Command(name = "fmcli",
         mixinStandardHelpOptions = true,
-        version = "1.0.0",
+        version = "1.2.0",
         description = "File management easier for your life"
 )
 public class Fmcli implements Callable<Integer> {
@@ -17,22 +17,34 @@ public class Fmcli implements Callable<Integer> {
     private final FileListing fileListing = new FileListing();
     private final FileCreation fileCreation = new FileCreation();
     private final FileInformation fileInformation = new FileInformation();
+    private final FileWriting fileWriting = new FileWriting();
+    private final FileReading fileReading = new FileReading();
+    private final FilePdf filePdf = new FilePdf();
 
     @ArgGroup()
     private FmcliOptions options;
 
     static class FmcliOptions{
-        @Option(names = {"-e", "--extension"}, required = true, description = "Search for the files that matches the extension in the current directory")
+        @Option(names = {"-e", "--extension"}, required = true, description = "Search for files matching the extension in the current directory")
         private boolean isListing;
 
         @Option(names = {"-c", "--create"}, required = true, description = "Create a new file")
         private boolean isCreating;
 
-        @Option(names = {"-i", "--info"}, required = true, description = "Show the information of a file")
+        @Option(names = {"-i", "--info"}, required = true, description = "Display file information")
         private boolean isInfo;
 
         @Option(names = {"-l", "--list"}, required = true, description = "List all the files in current directory")
         private boolean isDirectory;
+
+        @Option(names = {"-w", "--write"}, required = true, description = "Write your files")
+        private boolean isWriting;
+
+        @Option(names = {"-r", "--read"}, required = true, description = "Read your files")
+        private boolean isReading;
+
+        @Option(names = {"--pdf"}, required = true, description = "Transform your file into a PDF")
+        private boolean isPdf;
     }
 
     //Return 0 -> SUCCESS
@@ -51,6 +63,15 @@ public class Fmcli implements Callable<Integer> {
         }
         if (options.isInfo){
             return resolveInformation();
+        }
+        if (options.isWriting) {
+            return resolveWriting();
+        }
+        if (options.isReading){
+            return resolveReading();
+        }
+        if (options.isPdf){
+            return resolvePdf();
         }
         return 0;
     }
@@ -74,8 +95,8 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveCreating(){
-        var searchCreateResult = fileCreation.createFile(".", "sino.txt");
-        return switch (searchCreateResult){
+        var createFileResult = fileCreation.createFile(".", "csv.csv");
+        return switch (createFileResult){
             case NoFileCreated noFileCreated -> 1;
             case FileAlreadyExists fileAlreadyExists -> -1;
             case FileCreated fileCreated -> 0;
@@ -85,14 +106,32 @@ public class Fmcli implements Callable<Integer> {
     private int resolveInformation(){
         var searchInfoResult = fileInformation.infoFile(".", "sin.txt");
         return switch (searchInfoResult){
-            case InfoError infoError -> {
-                System.out.println(infoError.getMessage());
-                yield 1;
-            }
-            case InfoSuccess infoSuccess -> {
-                infoSuccess.printFileInfo();
-                yield 0;
-            }
+            case InfoError infoError -> 1;
+            case InfoSuccess infoSuccess -> 0;
+        };
+    }
+
+    private int resolveWriting(){
+        var searchWriteResult = fileWriting.writeFile(".", "sino.txt", "hola como estas");
+        return switch (searchWriteResult){
+            case FileWriteError fileWriteError -> 1;
+            case FileWritten fileWritten -> 0;
+        };
+    }
+
+    private int resolveReading(){
+        var searchReadResult = fileReading.readFile(".", "csv.csv");
+        return switch (searchReadResult){
+            case FileReadError fileReadError -> 1;
+            case FileReadSuccess fileReadSuccess -> 0;
+        };
+    }
+
+    private int resolvePdf(){
+        var pdfFileResult = filePdf.transformToPdf(".", "sino.txt", "prueba.pdf");
+        return switch (pdfFileResult){
+            case PdfFileError pdfFileError -> 1;
+            case PdfFileSuccess pdfFileSuccess -> 0;
         };
     }
 

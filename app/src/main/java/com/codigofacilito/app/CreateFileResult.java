@@ -2,27 +2,27 @@ package com.codigofacilito.app;
 
 import java.io.File;
 
-public sealed abstract class SearchCreateResult permits NoFileCreated, FileCreated, FileAlreadyExists {
+public sealed abstract class CreateFileResult permits NoFileCreated, FileCreated, FileAlreadyExists {
     public final File file;
 
-    public SearchCreateResult(File file) {
+    public CreateFileResult(File file) {
         this.file = file;
     }
 }
 
-final class NoFileCreated extends SearchCreateResult{
+final class NoFileCreated extends CreateFileResult {
     public NoFileCreated() {
         super(null);
     }
 }
 
-final class FileAlreadyExists extends SearchCreateResult{
+final class FileAlreadyExists extends CreateFileResult {
     public FileAlreadyExists(File file){
         super(file);
     }
 }
 
-final class FileCreated extends SearchCreateResult{
+final class FileCreated extends CreateFileResult {
     public FileCreated(File file){
         super(file);
     }
