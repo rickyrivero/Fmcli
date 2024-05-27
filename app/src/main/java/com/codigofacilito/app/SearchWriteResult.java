@@ -17,10 +17,7 @@ final class FileWritten extends SearchWriteResult {
 }
 
 final class FileWriteError extends SearchWriteResult {
-    public final String errorMessage;
-
-    public FileWriteError(String errorMessage) {
+    public FileWriteError() {
         super(null);
-        this.errorMessage = errorMessage;
     }
 }

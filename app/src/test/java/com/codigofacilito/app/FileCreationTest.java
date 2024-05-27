@@ -40,7 +40,7 @@ class FileCreationTest {
                 testDirectory,
                 testFileName);
         assertNotNull(result);
-        assertTrue(result instanceof FileCreated);
+        assertTrue(result instanceof CreatedSearch);
         assertTrue(new File(testDirectory, testFileName).exists());
     }
 
@@ -48,13 +48,13 @@ class FileCreationTest {
     public void testFileAlreadyExists() throws IOException {
         new File(testDirectory, testFileName).createNewFile();
         var result = fileCreation.createFile(testDirectory, testFileName);
-        assertTrue(result instanceof FileAlreadyExists);
+        assertTrue(result instanceof AlreadyExistsSearch);
     }
 
     @Test
     public void testNotCreated() {
         var result = fileCreation.createFile("invalidDir", testFileName);
         assertNotNull(result);
-        assertTrue(result instanceof NoFileCreated);
+        assertTrue(result instanceof NoCreatedSearch);
     }
 }

@@ -48,8 +48,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     //Return 0 -> SUCCESS
-    //Return 1 -> FAILURE
-    //Comprobar ejecución en Windows -> echo $LASTEXITCODE
+    //Return 1/-1 -> FAILURE
     @Override
     public Integer call() throws Exception {
         if (options.isListing){
@@ -95,11 +94,11 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveCreating(){
-        var createFileResult = fileCreation.createFile(".", "csv.csv");
-        return switch (createFileResult){
-            case NoFileCreated noFileCreated -> 1;
-            case FileAlreadyExists fileAlreadyExists -> -1;
-            case FileCreated fileCreated -> 0;
+        var searchCreateResult = fileCreation.createFile(".", "csv.csv");
+        return switch (searchCreateResult){
+            case NoCreatedSearch noFileCreated -> 1;
+            case AlreadyExistsSearch fileAlreadyExists -> -1;
+            case CreatedSearch fileCreated -> 0;
         };
     }
 

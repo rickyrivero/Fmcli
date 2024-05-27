@@ -2,10 +2,15 @@ package com.codigofacilito.app;
 
 import java.io.File;
 
+/**
+ * Devuelve información sobre el archivo
+ */
+
 public class FileInformation {
     public SearchInfoResult infoFile(String rootDirectory, String name){
         var file = new File(rootDirectory, name);
 
+        //Validamos si el archivo existe y si es válido
         if (file.exists() && file.isFile()) {
             System.out.println("File name: " + file.getName());
             System.out.println("Absolute path: " + file.getAbsolutePath());

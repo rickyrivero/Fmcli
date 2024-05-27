@@ -5,9 +5,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Se encarga de leer el contenido de un archivo dado
+ */
+
 public class FileReading {
     public SearchReadResult readFile(String rootDirectory, String name) {
         var file = new File(rootDirectory, name);
+
+        //Valida si el archivo existe
         if (file.exists() && file.isFile()) {
             try {
                 String content = Files.readString(Path.of(file.getAbsolutePath()));

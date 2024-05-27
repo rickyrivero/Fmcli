@@ -1,5 +1,6 @@
 package com.codigofacilito.app;
 
+
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -12,14 +13,27 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Transforma un archivo dado a un archivo pdf
+ * La conversión solo soporta archivos txt,csv,png,jpg,jpeg
+ */
+
 public class FilePdf {
+
+    /**
+     * Debe ingresar el directorio donde se encuentra el archivo desado, el nombre del archivo y
+     * el nombre que va te tener el archivo cuando se convierta en pdf
+     */
     public PdfFileResult transformToPdf(String rootDirectory, String inputFileName, String outputFileName) {
         File inputFile = new File(rootDirectory, inputFileName);
+
+        //Chequeamos que el nombre termine con .pdf y si no es el caso se lo agrega
         if (!outputFileName.endsWith(".pdf")) {
             outputFileName += ".pdf";
         }
         File outputFile = new File(rootDirectory, outputFileName);
 
+        //Validamos si el archivo existe
         if (!inputFile.exists() || !inputFile.isFile()) {
             System.out.println("El archivo de entrada no existe o no es un archivo valido.");
             return new PdfFileError();
@@ -31,6 +45,7 @@ public class FilePdf {
 
             String fileExtension = getFileExtension(inputFileName);
 
+            //Validamos casos acorde al tipo de  extensión del archivo
             switch (fileExtension) {
                 case "txt":
                 case "csv":
@@ -57,7 +72,11 @@ public class FilePdf {
     }
 
     private String getFileExtension(String fileName) {
+        //Busca la posición del punto
         int dotIndex = fileName.lastIndexOf('.');
+
+        //Extrae lo encontrado despues del punto
+        //De no encontrar nada devuelve -1
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1).toLowerCase();
     }
 }
