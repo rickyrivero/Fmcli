@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    kotlin("jvm") version "1.8.0"
 }
 
 repositories {
@@ -20,6 +21,7 @@ dependencies {
     annotationProcessor(libs.picocli.codegen)
     implementation("com.itextpdf:itext7-core:7.2.6")
     implementation("org.slf4j:slf4j-simple:2.0.7")
+    implementation("info.picocli:picocli:4.6.1")
 
     // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
@@ -49,4 +51,18 @@ tasks.named<Test>("test") {
 
 tasks.withType<JavaCompile>().configureEach{
     options.compilerArgs.add("-Aproject=${project.group}/${project.name}")
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "com.codigofacilito.app.Fmcli"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }.map {
+            it.filter { file -> !file.name.contains("META-INF/*.SF") && !file.name.contains("META-INF/*.DSA") && !file.name.contains("META-INF/*.RSA") }
+        }
+    })
+    archiveBaseName.set("fmcli")
+    archiveVersion.set("0.1.0")
 }
