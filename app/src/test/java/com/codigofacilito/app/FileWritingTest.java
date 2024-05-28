@@ -24,7 +24,6 @@ class FileWritingTest {
         testFileName = "testFile.txt";
         testContent = "This is a test content.";
 
-        // Create a test directory and file
         new File(testDirectory).mkdirs();
         try {
             new File(testDirectory, testFileName).createNewFile();
@@ -35,7 +34,6 @@ class FileWritingTest {
 
     @AfterEach
     public void tearDown() {
-        // Clean up the test directory and files
         new File(testDirectory, testFileName).delete();
         new File(testDirectory).delete();
     }
@@ -46,7 +44,6 @@ class FileWritingTest {
         assertTrue(result instanceof FileWritten);
         assertTrue(new File(testDirectory, testFileName).exists());
 
-        // Verify file content
         try {
             String content = Files.readString(Path.of(testDirectory, testFileName));
             assertEquals(testContent, content);

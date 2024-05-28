@@ -4,6 +4,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.ArgGroup;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
@@ -47,6 +48,21 @@ public class Fmcli implements Callable<Integer> {
         private boolean isPdf;
     }
 
+    @Option(names = {"-rd","--rootDirectory"}, description = "The directory where the file will be created")
+    private String rootDirectory;
+
+    @Option(names = {"-fn","--fileName"}, description = "The name of the file to be created")
+    private String fileName;
+
+    @Option(names = {"-ge","--getExtension"}, description = "The extension of the files to list")
+    private String extension;
+
+    @Option(names = {"-co","--content"}, description = "File content", arity = "1..*")
+    private String content;
+
+    @Option(names = {"-on","--outputName"}, description = "Output name")
+    private String outputName;
+
     //Return 0 -> SUCCESS
     //Return 1/-1 -> FAILURE
     @Override
@@ -76,7 +92,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveListing(){
-        var searchFileResult = fileListing.getFilesByExtension(".", ".txt");
+        var searchFileResult = fileListing.getFilesByExtension(rootDirectory, extension);
         return switch (searchFileResult){
             case NoFilesFound noFilesFound -> 1;
             case DirectoryNotFound directoryNotFound-> -1;
@@ -85,7 +101,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveDirectory(){
-        var searchFileResult = fileListing.getFilesAndDirectories(".");
+        var searchFileResult = fileListing.getFilesAndDirectories(rootDirectory);
         return switch (searchFileResult){
             case NoFilesFound noFilesFound -> 1;
             case DirectoryNotFound directoryNotFound-> -1;
@@ -94,7 +110,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveCreating(){
-        var searchCreateResult = fileCreation.createFile(".", "csv.csv");
+        var searchCreateResult = fileCreation.createFile(rootDirectory, fileName);
         return switch (searchCreateResult){
             case NoCreatedSearch noFileCreated -> 1;
             case AlreadyExistsSearch fileAlreadyExists -> -1;
@@ -103,7 +119,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveInformation(){
-        var searchInfoResult = fileInformation.infoFile(".", "sin.txt");
+        var searchInfoResult = fileInformation.infoFile(rootDirectory, fileName);
         return switch (searchInfoResult){
             case InfoError infoError -> 1;
             case InfoSuccess infoSuccess -> 0;
@@ -111,7 +127,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveWriting(){
-        var searchWriteResult = fileWriting.writeFile(".", "sino.txt", "hola como estas");
+        var searchWriteResult = fileWriting.writeFile(rootDirectory, fileName, content);
         return switch (searchWriteResult){
             case FileWriteError fileWriteError -> 1;
             case FileWritten fileWritten -> 0;
@@ -119,7 +135,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolveReading(){
-        var searchReadResult = fileReading.readFile(".", "csv.csv");
+        var searchReadResult = fileReading.readFile(rootDirectory, fileName);
         return switch (searchReadResult){
             case FileReadError fileReadError -> 1;
             case FileReadSuccess fileReadSuccess -> 0;
@@ -127,7 +143,7 @@ public class Fmcli implements Callable<Integer> {
     }
 
     private int resolvePdf(){
-        var pdfFileResult = filePdf.transformToPdf(".", "sino.txt", "prueba.pdf");
+        var pdfFileResult = filePdf.transformToPdf(rootDirectory, fileName, outputName);
         return switch (pdfFileResult){
             case PdfFileError pdfFileError -> 1;
             case PdfFileSuccess pdfFileSuccess -> 0;

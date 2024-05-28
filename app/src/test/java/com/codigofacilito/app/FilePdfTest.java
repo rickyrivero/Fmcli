@@ -25,7 +25,7 @@ class FilePdfTest {
         testOutputFileName = "testFile.pdf";
         testContent = "This is a test content.";
 
-        // Create a test directory and file
+        // Crea un directorio de pruebas
         new File(testDirectory).mkdirs();
         try (FileWriter writer = new FileWriter(new File(testDirectory, testInputFileName))) {
             writer.write(testContent);
@@ -36,7 +36,7 @@ class FilePdfTest {
 
     @AfterEach
     public void tearDown() {
-        // Clean up the test directory and files
+        // Elimina las creaciones de prueba
         new File(testDirectory, testInputFileName).delete();
         new File(testDirectory, testOutputFileName).delete();
         new File(testDirectory).delete();

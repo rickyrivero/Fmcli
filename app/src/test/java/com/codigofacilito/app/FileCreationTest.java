@@ -20,13 +20,13 @@ class FileCreationTest {
         testDirectory = "testDir";
         testFileName = "testFile.txt";
 
-        // Create a test directory
+        // Crea un directorio de pruebas
         new File(testDirectory).mkdirs();
     }
 
     @AfterEach
     public void tearDown() {
-        // Clean up the test directory and files
+        // Elimina las creaciones de prueba
         File file = new File(testDirectory, testFileName);
         if (file.exists()) {
             file.delete();
@@ -36,9 +36,7 @@ class FileCreationTest {
 
     @Test
     public void testCreateFile() {
-        var result = fileCreation.createFile(
-                testDirectory,
-                testFileName);
+        var result = fileCreation.createFile(testDirectory, testFileName);
         assertNotNull(result);
         assertTrue(result instanceof CreatedSearch);
         assertTrue(new File(testDirectory, testFileName).exists());

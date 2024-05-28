@@ -23,7 +23,6 @@ class FileReadingTest {
         testFileName = "testFile.txt";
         testContent = "This is a test content.";
 
-        // Create a test directory and file
         new File(testDirectory).mkdirs();
         try (FileWriter writer = new FileWriter(new File(testDirectory, testFileName))) {
             writer.write(testContent);
@@ -34,7 +33,6 @@ class FileReadingTest {
 
     @AfterEach
     public void tearDown() {
-        // Clean up the test directory and files
         new File(testDirectory, testFileName).delete();
         new File(testDirectory).delete();
     }

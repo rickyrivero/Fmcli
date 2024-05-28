@@ -68,7 +68,7 @@ public class FileListing {
                     }
                 }
 
-                //Creamos una lista con los datos para organizar todo
+                //Creamos una lista con los datos para organizar el output
                 File[] sortedFiles = new File[directories.size() + fileList.size()];
                 int index = 0;
 

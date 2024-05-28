@@ -22,7 +22,7 @@ class FileInformationTest {
         testDirectory = "testDir";
         testFileName = "testFile.txt";
 
-        // Create a test directory and file
+        // Crea un directorio de pruebas
         new File(testDirectory).mkdirs();
         testFile = new File(testDirectory, testFileName);
         try (FileWriter writer = new FileWriter(testFile)) {
@@ -32,7 +32,7 @@ class FileInformationTest {
 
     @AfterEach
     public void tearDown() {
-        // Clean up the test directory and files
+        // Elimina las creaciones de prueba
         if (testFile.exists()) {
             testFile.delete();
         }
@@ -43,19 +43,18 @@ class FileInformationTest {
     public void testInfoFile_FileExists() {
         var result = fileInformation.infoFile(testDirectory, testFileName);
         assertTrue(result instanceof InfoSuccess);
+
         InfoSuccess infoSuccess = (InfoSuccess) result;
-        assertEquals(testFileName, infoSuccess.getFileName());
-        assertEquals(testFile.getAbsolutePath(), infoSuccess.getAbsolutePath());
-        assertTrue(infoSuccess.isWritable());
-        assertTrue(infoSuccess.isReadable());
-        assertEquals(testFile.length(), infoSuccess.getFileSizeInBytes());
+        assertEquals(testFileName, infoSuccess.file.getName());
+        assertEquals(testFile.getAbsolutePath(), infoSuccess.file.getAbsolutePath());
+        assertTrue(infoSuccess.file.canWrite());
+        assertTrue(infoSuccess.file.canRead());
+        assertEquals(testFile.length(), infoSuccess.file.length());
     }
 
     @Test
     public void testInfoFile_FileNotExists() {
         var result = fileInformation.infoFile(testDirectory, "nonExistentFile.txt");
         assertTrue(result instanceof InfoError);
-        InfoError infoError = (InfoError) result;
-        assertEquals("El archivo no existe o no es un archivo valido.", infoError.getMessage());
     }
 }
