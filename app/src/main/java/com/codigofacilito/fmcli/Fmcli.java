@@ -1,10 +1,9 @@
-package com.codigofacilito.app;
+package com.codigofacilito.fmcli;
 
 import picocli.CommandLine;
 import picocli.CommandLine.ArgGroup;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 

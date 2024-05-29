@@ -38,7 +38,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "com.codigofacilito.app.Fmcli"
+    mainClass = "com.codigofacilito.fmcli.Fmcli"
 }
 
 tasks.named<Test>("test") {

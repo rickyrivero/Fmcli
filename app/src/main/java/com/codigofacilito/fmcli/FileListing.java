@@ -1,4 +1,4 @@
-package com.codigofacilito.app;
+package com.codigofacilito.fmcli;
 
 import java.io.File;
 import java.util.ArrayList;
