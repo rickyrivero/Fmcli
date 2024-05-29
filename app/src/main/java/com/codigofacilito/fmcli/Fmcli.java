@@ -47,19 +47,19 @@ public class Fmcli implements Callable<Integer> {
         private boolean isPdf;
     }
 
-    @Option(names = {"-rd","--rootDirectory"}, description = "The directory where the file will be created")
+    @Option(names = {"-rd","--rootDirectory"}, description = "The directory where the command will be executed")
     private String rootDirectory;
 
-    @Option(names = {"-fn","--fileName"}, description = "The name of the file to be created")
+    @Option(names = {"-fn","--fileName"}, description = "The name of the file to execute")
     private String fileName;
 
     @Option(names = {"-ge","--getExtension"}, description = "The extension of the files to list")
     private String extension;
 
-    @Option(names = {"-co","--content"}, description = "File content", arity = "1..*")
+    @Option(names = {"-co","--content"}, description = "File content")
     private String content;
 
-    @Option(names = {"-on","--outputName"}, description = "Output name")
+    @Option(names = {"-on","--outputName"}, description = "Output pdf file name")
     private String outputName;
 
     //Return 0 -> SUCCESS
