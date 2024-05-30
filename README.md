@@ -7,6 +7,7 @@ Este es el proyecto final del bootcamp de Código Facilito, donde desarrollé un
 
 El programa sirve para listar, crear, obtener información, leer y escribir archivos de una forma más intuitiva para el usuario, con una interfaz explicativa con funciones le dejen saber al usuario el estado de su petición, es decir, si esta fue exitosa o si tuvo algún error y por qué.
 
+Formatos soportados por la función para convertir archivos a pdf: txt, csv, png, jpeg y jpg
 
 ## Version
 
