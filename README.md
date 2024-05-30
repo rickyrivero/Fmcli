@@ -1,7 +1,7 @@
 
 # Fmcli (FileManagementCLI)
 
-Este es el proyecto final del bootcamp de Código Facilito, donde desarrollé una herramienta CLI que permite un manejo de archivos en local. El proyecto esta orientado a que se tenga un manejo más dinámico y sencillo de los archivos mientas uno esta trabajando en algún proyecto o simplemente en el día a día.
+Este es el proyecto final del bootcamp de Código Facilito, donde desarrollé una herramienta CLI que permite un manejo de archivos en local. El proyecto esta orientado a que se tenga un manejo más dinámico y sencillo de los archivos mientas uno esta trabajando en algún proyecto o simplemente en el día a día. Requisitos para correr el programa, tener jdk-21 y gradle instalados con sus variables de ambiente correspondientes.
 
 ## Intenciones del programa
 
@@ -22,7 +22,7 @@ El programa sirve para listar, crear, obtener información, leer y escribir arch
 
 ## Uso
 
-Para sacarle el máximo provecho a esta herramienta es recomendable añadirla a una variable de entorno de sus sistema operativo. Para eso he creado una carpeta "path" en la cual se encuenta el bin y las librerias del proyecto, es necesario que copie la dirreción de la carpeta bin y añada como variable, en esta carpeta se encuenta un archivo .bat para ejecutar los comandos en la terminal sin necesidad de estar en la carpeta del programa
+Para sacarle el máximo provecho a esta herramienta es recomendable añadirla a una variable de entorno de sus sistema operativo. Para eso he creado una carpeta "path" en la cual se encuenta el bin y las librerias del proyecto, es necesario que copie la dirreción de la carpeta bin y añada como variable, en esta carpeta se encuenta un archivo .bat para ejecutar los comandos en la terminal sin necesidad de estar en la carpeta del programa.
 
 ### Modo de uso:
 
